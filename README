@@ -15,3 +15,40 @@ Wordlists Downloaded For Hydra:
 rockyou.txt
 
 Setup and tested C enviroment with basic hello world script.
+
+## 🚀 GitHub Workflow (Basic Git Commands)
+
+Use the following Git commands to manage version control and push changes to your GitHub repository.
+
+| Command | Description |
+|--------|-------------|
+| `git status` | Shows the current state of your working directory (changes, untracked files, etc.). |
+| `git add .` | Stages all changed files for the next commit. |
+| `git add <filename>` | Stages a specific file only. |
+| `git commit -m "your message"` | Commits the staged changes with a message describing the update. |
+| `git push` | Uploads your local commits to the GitHub repository. |
+| `git pull` | Fetches and merges the latest changes from GitHub into your local branch. |
+| `git log` | Displays the history of commits in the current branch. |
+| `git clone <repo-url>` | Creates a local copy of a GitHub repository. |
+| `git branch -M main` | Renames the current branch to `main` (used in setup). |
+| `git remote add origin <repo-url>` | Connects your local repo to a GitHub remote repository. |
+| `git remote -v` | Shows the current remote repository URLs. |
+
+### ✅ Typical Workflow
+
+```bash
+# 1. Check current changes
+git status
+
+# 2. Stage changes
+git add .
+
+# 3. Commit with a message
+git commit -m "Add feature or fix bug"
+
+# 4. Push to GitHub
+git push
+
+# 5. Pull latest changes before working (if collaborating or using multiple devices)
+git pull
+
