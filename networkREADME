@@ -1,0 +1,129 @@
+PREP: files to have in place (once)
+
+* /etc/hostapd/hostapd.conf (hostapd config — SSID, driver, channel, WPA2 settings)
+* /etc/dnsmasq.d/pentest.conf (dnsmasq DHCP config)
+* use nvim to edit: sudo nvim /path/to/file
+
+If these exist and are correct you only need the runtime steps below.
+
+---
+
+RUNTIME STEPS (run these after reboot)
+
+1. stop services that manage Wi‑Fi (they will fight hostapd)
+   sudo systemctl stop NetworkManager
+   sudo systemctl stop wpa_supplicant
+   Why: frees the wireless interface so hostapd can take it into AP mode.
+
+2. make sure Wi‑Fi is not blocked
+   rfkill list
+   If Soft blocked: yes then run: sudo rfkill unblock wifi
+   Why: hardware/software kill switch would keep the radio down.
+
+3. bring interface down (prepare for mode change)
+   sudo ip link set wlp0s20f3 down
+   Why: safest way to change mode and avoid race conditions.
+
+4. start hostapd (run in foreground first to watch for errors)
+   sudo hostapd /etc/hostapd/hostapd.conf
+   If it prints errors, fix config and retry. Leave it running in this terminal for now.
+   Why: hostapd switches the radio from managed → AP and advertises the SSID.
+
+If you prefer to run hostapd as a service instead:
+sudo systemctl unmask hostapd
+sudo systemctl enable --now hostapd
+Check logs with: sudo journalctl -u hostapd -n 200
+
+5. in a new terminal, verify the interface is AP
+   sudo iw dev wlp0s20f3 info
+   Look for: type AP
+   Why: confirms AP mode is active.
+
+6. assign the AP IP and bring interface up
+   sudo ip addr add 10.0.0.1/24 dev wlp0s20f3
+   sudo ip link set wlp0s20f3 up
+   Why: laptop becomes gateway/DNS for the isolated network.
+
+7. start/restart dnsmasq for DHCP (must bind to your AP interface)
+   sudo systemctl restart dnsmasq
+   If dnsmasq fails, check: sudo systemctl status dnsmasq.service and sudo journalctl -xeu dnsmasq.service
+   Common fix: stop systemd-resolved (it often uses port 53): sudo systemctl stop systemd-resolved
+   Alternative if you don’t want dnsmasq DNS: add port=0 to /etc/dnsmasq.d/pentest.conf so it only serves DHCP.
+   Why: DHCP gives RB3 an IP automatically and dhcp-option can point clients to 10.0.0.1 for DNS.
+
+8. confirm RB3 connected and got a lease
+   cat /var/lib/misc/dnsmasq.leases
+   or check hostapd stations: sudo hostapd_cli all_sta
+   Why: ensures client association and DHCP succeeded.
+
+9. capture traffic
+   Quick capture on AP (managed) interface:
+   sudo tcpdump -i wlp0s20f3 -n -s 0 -w ~/rb3_capture.pcap
+   Better capture (raw 802.11 frames) — create monitor interface if supported:
+   sudo iw dev wlp0s20f3 interface add mon0 type monitor
+   sudo ip link set mon0 up
+   sudo iw dev mon0 set channel 6
+   sudo tcpdump -i mon0 -n -s 0 -w ~/rb3_mon_capture.pcap
+   Why: monitor mode gives full frames + management frames and lets you capture WPA handshakes for decryption.
+
+10. decrypt WPA2 captures in Wireshark (if using WPA2)
+    Ensure you captured the 4‑way handshake (start capture before RB3 authenticates). In Wireshark add key:
+    wpa-pwd:YOUR_PASS:SSID
+    Why: Wireshark can derive session keys if it has the PSK and the handshake frames.
+
+11. cleanup / restore normal Wi‑Fi
+    When done:
+    sudo pkill hostapd
+    sudo systemctl start NetworkManager
+    sudo systemctl start wpa_supplicant
+    If you stopped systemd-resolved earlier and need it back:
+    sudo systemctl start systemd-resolved
+    Why: returns laptop to normal client behavior.
+
+---
+
+TROUBLESHOOTING (quick checklist)
+
+* hostapd fails immediately: check hostapd output; common causes: interface in use by NM, driver doesn’t support AP. Stop NetworkManager, check dmesg, or use a USB Wi‑Fi adapter that supports AP.
+* dnsmasq fails to bind port 53: find process using 53: sudo lsof -i :53 ; stop systemd-resolved if present: sudo systemctl stop systemd-resolved ; or set port=0 in dnsmasq config to disable DNS.
+* cannot create monitor interface: driver limitation — use second USB adapter (one for AP, one for monitor).
+* interface stays DOWN: rfkill list ; check dmesg via sudo dmesg | grep -i wlp0s20f3 ; reload driver: sudo modprobe -r iwlwifi mac80211 cfg80211 ; sudo modprobe iwlwifi
+
+---
+
+FILES (examples you should have saved)
+
+Hostapd example (use nvim to edit)
+sudo nvim /etc/hostapd/hostapd.conf
+interface=wlp0s20f3
+driver=nl80211
+ssid=RB3_SECURE_PENTEST
+hw_mode=g
+channel=6
+auth_algs=1
+wpa=2
+wpa_passphrase=YourStrongPass8+   <-- must be 8..63 chars
+wpa_key_mgmt=WPA-PSK
+rsn_pairwise=CCMP
+
+Dnsmasq example (use nvim to edit)
+sudo nvim /etc/dnsmasq.d/pentest.conf
+interface=wlp0s20f3
+bind-interfaces
+dhcp-range=10.0.0.50,10.0.0.150,12h
+dhcp-option=3,10.0.0.1
+dhcp-option=6,10.0.0.1
+log-dhcp
+
+---
+
+QUICK ONE-LINERS (copyable)
+Stop managers: sudo systemctl stop NetworkManager wpa_supplicant
+Start hostapd (foreground): sudo hostapd /etc/hostapd/hostapd.conf
+Assign IP: sudo ip addr add 10.0.0.1/24 dev wlp0s20f3 ; sudo ip link set wlp0s20f3 up
+Restart dnsmasq: sudo systemctl restart dnsmasq
+Capture: sudo tcpdump -i wlp0s20f3 -w ~/rb3.pcap
+
+---
+
+

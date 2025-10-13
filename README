@@ -1,0 +1,17 @@
+Tools Installed:
+Wireshark
+Hping3
+Hydra
+VSCode
+iw
+tcpdump
+hostapd 
+dnsmasq 
+iproute2
+
+
+
+Wordlists Downloaded For Hydra:
+rockyou.txt
+
+Setup and tested C enviroment with basic hello world script.
