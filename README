@@ -9,7 +9,13 @@ hostapd
 dnsmasq 
 iproute2
 
-
+for my literature review these are the papers i've read: 
+https://www.mdpi.com/1999-5903/16/3/88 
+https://www.mdpi.com/1999-5903/15/1/9 
+https://ieeexplore.ieee.org/abstract/document/10735196 
+https://www.mdpi.com/1999-5903/15/5/187 
+https://ieeexplore.ieee.org/abstract/document/9826188 
+https://link.springer.com/chapter/10.1007/978-3-031-46749-3_23
 
 Wordlists Downloaded For Hydra:
 rockyou.txt
