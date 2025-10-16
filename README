@@ -200,7 +200,6 @@ VoiceAssistantProfile:
 
 ### Implementation Notes
 
-* Each profile can run as an independent Python process on the RB3 to simulate multiple concurrent devices.
 * Parameters such as timing, payload size, and event schedules should be randomized within realistic ranges to avoid deterministic traffic.
 * Output ground-truth logs (device ID, mode, timestamps) for labeling your IDS dataset.
 * Capture generated traffic with `tcpdump` or similar to produce `.pcap` files for analysis.
