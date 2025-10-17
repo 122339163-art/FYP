@@ -216,7 +216,7 @@ int main(int argc, char **argv) {
         uint64_t now = now_ms(); // Current time in ms
 
         /* send a sync packet at beginning of operation*/
-        if (start = 0 ) {
+        if (start == 0 ) {
             udp_send(sock, &dst, sync_msg, sizeof(sync_msg) - 1); // Send sync packet
             start = 1;
         }
