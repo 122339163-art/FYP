@@ -227,6 +227,11 @@ Security Smart Cam Sim Program Usage:
  * - Intended to simulate network patterns for lab/testing. 
  */
 
+ Wireshark Filters:
+ udp
+ udp.port == xxx
+ frame contains "x"
+
 
 
 

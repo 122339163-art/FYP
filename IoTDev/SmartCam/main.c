@@ -199,6 +199,7 @@ int main(int argc, char **argv) {
     if (!payload) { fprintf(stderr, "Out of memory\n"); close(sock); return 1; }
 
     const char keepalive_msg[] = "{\"type\":\"keepalive\"}"; // Keepalive JSON message
+    const char sync_msg[] = "{\"type\":\"startSync\"}"; // Start Sync JSON message
 
     fprintf(stderr,
             "Starting simulation -> server=%s:%d base=%.2fMbps motion=%.2fMbps keepalive=%ds pkt=%zuB motion_interval=%ds..%ds\n",
@@ -209,8 +210,16 @@ int main(int argc, char **argv) {
     uint64_t last_send_ms = now_ms();
     double send_accumulator = 0.0;
 
+    uint8_t start = 0;
+
     while (!stop) { // Main simulation loop
         uint64_t now = now_ms(); // Current time in ms
+
+        /* send a sync packet at beginning of operation*/
+        if (start = 0 ) {
+            udp_send(sock, &dst, sync_msg, sizeof(sync_msg) - 1); // Send sync packet
+            start = 1;
+        }
 
         /* Keepalive: send a small control/heartbeat periodically */
         if (now - last_keepalive_ms >= (uint64_t)keepalive_interval_s * 1000ULL) {
