@@ -3,8 +3,10 @@
  * - UDP-based synthetic stream to a server
  * - Simulates base stream bitrate, keepalive messages, randomized motion events
  *
- * Build:
+ * Build x86:
  *   gcc -O2 -std=c11 -o smartcam_sim main.c
+ * Build Arm64:
+ *   aarch64-linux-gnu-gcc -o smartcam_sim main.c
  *
  * Usage:
  *   ./smartcam_sim [options]
