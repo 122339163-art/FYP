@@ -211,7 +211,23 @@ These four device classes (IP Cameras, Smart Bulbs, Smart Plugs, and Voice Assis
 
 
 
-
+Security Smart Cam Sim Program Usage:
+ *   ./smartcam_sim [options]
+ *
+ * Options (examples):
+ *   -a <addr>    Server IPv4 address (default: 192.0.2.1)
+ *   -p <port>    Server UDP port (default: 9000)
+ *   -b <mbps>    Base stream bitrate in Mbps (default: 2.5)
+ *   -m <mbps>    Motion/burst bitrate in Mbps (default: 5.0)
+ *   -k <sec>     Keepalive interval in seconds (default: 30)
+ *   -s <bytes>   UDP payload size in bytes (default: 1200)
+ *   -i <sec>     Min interval between motion events (default: 20)
+ *   -x <sec>     Max interval between motion events (default: 180)
+ *   -h           Show this help and exit
+ *
+ * Notes:
+ * - Intended to simulate network patterns for lab/testing. 
+ */
 
 
 
