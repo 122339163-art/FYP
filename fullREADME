@@ -1,0 +1,325 @@
+* General overview at the top
+* Preparatory steps
+* Compiling and transferring `smartcam_sim` to the RB3 before running the orchestration script
+* Step-by-step labhand-friendly instructions
+* Data capture and cleanup
+* Git workflow and extra notes at the end
+
+---
+
+SMART CAMERA IOT EXPERIMENT – README
+
+==================================================
+
+OVERVIEW
+
+This repository contains code, scripts, and instructions for simulating realistic smart camera traffic using a Raspberry Pi 3 (RB3) Gen 2.
+
+Purpose:
+
+* Generate multimodal datasets for IoT intrusion detection research
+* Collect:
+
+  * Network traffic (UDP sync bursts + TCP backup uploads)
+  * Power / side-channel traces
+  * Video captures from the RB3 camera
+* Use realistic IoT device traffic patterns (base stream, motion bursts, keepalive)
+
+Setup uses a controlled lab environment with:
+
+* Isolated Wi-Fi AP
+* DHCP server for the RB3
+* Network traffic capture interfaces
+* TCP listener for backup uploads from RB3
+
+This guide is written so that someone completely unfamiliar with the experiment can set it up and run it safely.
+
+==================================================
+
+SYSTEM REQUIREMENTS
+
+Host Machine:
+
+* Linux (tested on Ubuntu 20.04+)
+* Installed tools:
+
+```
+sudo apt install tcpdump hostapd dnsmasq iproute2 iw nmap wireshark netcat build-essential
+```
+
+RB3 Gen 2:
+
+* SSH enabled
+* Built-in camera available at /dev/video0
+* Smart camera simulator program (`smartcam_sim`) compiled for ARM
+
+Optional:
+
+* Wordlists for Hydra (rockyou.txt)
+* C development environment (gcc) for compiling helper scripts
+
+---
+
+PREPARATION (ONE-TIME)
+
+1. Prepare Wi-Fi AP:
+
+* Stop normal Wi-Fi services:
+
+```
+sudo systemctl stop NetworkManager
+sudo systemctl stop wpa_supplicant
+```
+
+* Unblock Wi-Fi if needed:
+
+```
+rfkill list
+sudo rfkill unblock wifi   # Only if Soft blocked: yes
+```
+
+* Bring Wi-Fi interface down:
+
+```
+sudo ip link set wlp0s20f3 down
+```
+
+* Configure hostapd (/etc/hostapd/hostapd.conf):
+
+```
+interface=wlp0s20f3
+driver=nl80211
+ssid=RB3_SECURE_PENTEST
+hw_mode=g
+channel=6
+auth_algs=1
+wpa=2
+wpa_passphrase=YourStrongPass8+
+wpa_key_mgmt=WPA-PSK
+rsn_pairwise=CCMP
+```
+
+* Start hostapd in foreground:
+
+```
+sudo hostapd /etc/hostapd/hostapd.conf
+```
+
+Leave it running to check for errors.
+
+2. Assign AP IP and bring interface up:
+
+```
+sudo ip addr add 10.0.0.1/24 dev wlp0s20f3
+sudo ip link set wlp0s20f3 up
+```
+
+3. Configure dnsmasq for DHCP (/etc/dnsmasq.d/pentest.conf):
+
+```
+interface=wlp0s20f3
+bind-interfaces
+dhcp-range=10.0.0.50,10.0.0.150,12h
+dhcp-option=3,10.0.0.1
+dhcp-option=6,10.0.0.1
+log-dhcp
+```
+
+Restart dnsmasq:
+
+```
+sudo systemctl restart dnsmasq
+```
+
+4. Verify RB3 connects:
+
+* Check DHCP lease:
+
+```
+cat /var/lib/misc/dnsmasq.leases
+```
+
+* Check connected stations:
+
+```
+sudo hostapd_cli all_sta
+```
+
+---
+
+STEP 5 – COMPILING AND RUNNING THE EXPERIMENT
+
+1. On your laptop, compile `smartcam_sim` for ARM:
+
+```
+aarch64-linux-gnu-gcc -O2 -std=c11 -o smartcam_sim main.c
+```
+
+2. Transfer compiled ARM binary to RB3:
+
+```
+scp smartcam_sim <RB3_USER>@<RB3_HOST>:/home/<RB3_USER>/
+```
+
+* Replace `<RB3_USER>` and `<RB3_HOST>` with your RB3 credentials
+
+3. Create directory on host for TCP backups:
+
+```
+mkdir -p ~/smartcam_backups
+```
+
+4. Edit orchestration script `run_smartcam_experiment.sh` to set:
+
+* Duration: `RUN_HOURS`, `RUN_MINUTES`, `RUN_SECONDS`
+* RB3 SSH credentials
+* TCP backup directory: e.g., `~/smartcam_backups`
+* Capture interface: e.g., `wlp0s20f3`
+
+5. Run orchestration script:
+
+```
+./run_smartcam_experiment.sh
+```
+
+What the script does automatically:
+
+* Starts network capture (`.pcap`) for UDP sync bursts and TCP backup
+* Starts TCP listener for receiving video backups
+* Launches smart camera simulator on RB3
+* Runs for specified duration
+* Stops camera, TCP listener, and network capture cleanly
+
+---
+
+STEP 6 – DATA CHECK
+
+After experiment finishes:
+
+* PCAP file: `experiment_YYYYMMDD_HHMMSS.pcap`
+* Backup files: `BACKUP_DIR/backup_*.raw`
+* Power traces: collected separately
+
+All files are ready for analysis.
+
+---
+
+STEP 7 – CLEANUP
+
+* Stop AP and restore normal Wi-Fi:
+
+```
+sudo pkill hostapd
+sudo systemctl start NetworkManager
+sudo systemctl start wpa_supplicant
+sudo systemctl start systemd-resolved
+```
+
+* Optional: reset Wi-Fi interface:
+
+```
+sudo ip link set wlp0s20f3 down
+sudo ip link set wlp0s20f3 up
+```
+
+---
+
+TROUBLESHOOTING
+
+* `hostapd` fails → stop NetworkManager, check Wi-Fi driver supports AP
+* `dnsmasq` cannot bind port 53 → stop systemd-resolved or set `port=0`
+* RB3 cannot connect → check DHCP lease
+* Wi-Fi interface stays down → `rfkill list`, `sudo modprobe -r iwlwifi; sudo modprobe iwlwifi`
+
+---
+
+SMART CAMERA SIMULATOR OPTIONS
+
+Run on RB3:
+
+```
+./smartcam_sim [options]
+```
+
+Options:
+
+-a <addr>        Server IPv4 address (default: 192.0.2.1)
+-p <port>        Server UDP port (default: 9000)
+-b <mbps>        Base stream bitrate (default: 2.5)
+-m <mbps>        Motion/burst bitrate (default: 5.0)
+-k <sec>         Keepalive interval (default: 30)
+-s <bytes>       UDP payload size (default: 1200)
+-i <sec>         Min motion interval (default: 20)
+-x <sec>         Max motion interval (default: 180)
+-h               Show help
+
+Notes:
+
+* UDP packets only sent during sync bursts
+* TCP backup mimics cloud upload
+* Base vs motion stream patterns simulate real camera behavior
+
+---
+
+WIRESHARK / PCAP ANALYSIS
+
+* Filters for sync UDP packets:
+
+```
+udp
+udp.port == 9000
+frame contains "SYNC"
+```
+
+* Filters for backup TCP connections:
+
+```
+tcp.port == 10000
+```
+
+* Decrypt WPA2 if needed (capture handshake, Wireshark: wpa-pwd:YOUR_PASS:SSID)
+
+---
+
+DEVICE PROFILES FOR SYNTHETIC TRAFFIC
+
+Device Type        Purpose                   Network Pattern
+
+---
+
+IP Camera / Doorbell  High-bandwidth streams  Base + motion burst, keepalives
+Smart Bulb           Control-plane chatter   Frequent small HTTP/REST packets
+Smart Plug           Telemetry               Periodic JSON telemetry + state changes
+Voice Assistant      Sporadic audio uploads  Keepalive pings + event-triggered uploads
+
+Notes:
+
+* Randomized intervals simulate realistic traffic
+* Ground truth logs generated to label each event
+* Captured traffic saved as .pcap files
+
+---
+
+GIT WORKFLOW
+
+* git status          # Check local changes
+* git add .           # Stage changes
+* git commit -m "msg" # Commit
+* git push            # Push to remote
+* git pull            # Sync with remote
+
+---
+
+REFERENCES / LITERATURE
+
+* IoT network behavior studies (preliminary report references)
+* Device traffic characteristics:
+
+  * Smart cameras: streaming + motion bursts
+  * Smart bulbs: low-bandwidth REST traffic
+  * Smart plugs: telemetry + state changes
+  * Voice assistants: TLS keepalives + audio uploads
+* Tools: Wireshark, tcpdump, hping3, Hydra, hostapd, dnsmasq, iproute2
+* Wordlists: rockyou.txt (for authentication simulation)
+
+
