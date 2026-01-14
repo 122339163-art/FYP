@@ -1,41 +1,35 @@
 #!/bin/bash
 #
 # Smart Camera Experiment Controller
-#
-# WHAT THIS SCRIPT DOES:
-# ---------------------
-# 1. Starts capturing network traffic (UDP + TCP) into a PCAP file
-# 2. Starts a TCP server to receive video backups
-# 3. Launches the smart camera program on the RB3 Gen 2 over SSH
-# 4. Runs for a user-specified amount of time
-# 5. Stops everything cleanly
-#
-# WHY THIS EXISTS:
-# ----------------
-# This allows fully automated, repeatable data collection for
-# multimodal datasets (power + network + video artifacts).
+# ----------------------------------
+# Responsibilities:
+# - Start tcpdump for monitoring
+# - Prune backup folder to max 2 recent videos
+# - Launch smartcam on RB3 after 5s delay
+# - Stop smartcam 10s before experiment ends
+# - Cleanly stop monitoring after experiment duration
 #
 
-set -e
+set -euo pipefail
 
 ############################################
 # USER CONFIGURATION
 ############################################
 
-# RB3 Gen 2 connection details
+# RB3 camera details
 RB3_USER="root"
-RB3_HOST="192.0.2.10"            # IP of RB3 Gen 2
-RB3_BINARY="/root/smart_camera"  # Path to camera program on RB3
+RB3_HOST="192.0.2.10"
+RB3_BINARY="/root/smart_camera"
 
-# Network capture settings
+# Monitoring settings
 CAPTURE_INTERFACE="eth0"
 PCAP_FILE="experiment_$(date +%Y%m%d_%H%M%S).pcap"
 
-# TCP backup receiver settings
-BACKUP_PORT=10000
 BACKUP_DIR="./backups"
+MAX_BACKUPS=3
+KEEP_BACKUPS=2
 
-# How long to run (example: 4h 10m 15s)
+# Experiment duration
 RUN_HOURS=4
 RUN_MINUTES=10
 RUN_SECONDS=15
@@ -45,97 +39,104 @@ RUN_SECONDS=15
 ############################################
 
 TOTAL_SECONDS=$((RUN_HOURS*3600 + RUN_MINUTES*60 + RUN_SECONDS))
-
-############################################
-# SAFETY CHECKS
-############################################
-
-if [ "$TOTAL_SECONDS" -le 0 ]; then
-    echo "ERROR: Total run time must be greater than zero."
-    exit 1
-fi
+START_TIME=$(date +%s)
+PRERUN_BUFFER=5        # seconds before starting smartcam
+POSTRUN_BUFFER=10      # seconds to stop smartcam before experiment end
 
 mkdir -p "$BACKUP_DIR"
 
 ############################################
-# START PACKET CAPTURE
+# CLEANUP FUNCTION
+############################################
+
+cleanup() {
+    echo "[+] Cleaning up..."
+    # Kill tcpdump
+    if [[ -n "${TCPDUMP_PID-}" ]]; then
+        sudo kill -INT "$TCPDUMP_PID" 2>/dev/null || true
+        wait "$TCPDUMP_PID" 2>/dev/null || true
+    fi
+    # Stop smartcam on RB3 safely
+    if [[ -n "${SMARTCAM_PID_FILE-}" ]]; then
+        ssh "$RB3_USER@$RB3_HOST" "
+            if [ -f $SMARTCAM_PID_FILE ]; then
+                kill \$(cat $SMARTCAM_PID_FILE) 2>/dev/null || true
+                rm -f $SMARTCAM_PID_FILE
+            fi
+        "
+    fi
+}
+
+trap cleanup EXIT SIGINT SIGTERM
+
+############################################
+# BACKUP FOLDER MANAGEMENT
+############################################
+
+prune_backups() {
+    files=($(ls -1t "$BACKUP_DIR"/* 2>/dev/null || true))
+    if [ ${#files[@]} -gt $MAX_BACKUPS ]; then
+        for f in "${files[@]:$KEEP_BACKUPS}"; do
+            rm -f "$f"
+            echo "[*] Pruned old backup: $f"
+        done
+    fi
+}
+
+############################################
+# START TCPDUMP
 ############################################
 
 echo "[+] Starting network capture -> $PCAP_FILE"
-
-sudo tcpdump \
-    -i "$CAPTURE_INTERFACE" \
-    -w "$PCAP_FILE" \
-    tcp or udp \
-    >/dev/null 2>&1 &
-
+sudo tcpdump -i "$CAPTURE_INTERFACE" -w "$PCAP_FILE" -U tcp or udp >/dev/null 2>&1 &
 TCPDUMP_PID=$!
 
 ############################################
-# START TCP BACKUP RECEIVER
+# START EXPERIMENT LOOP
 ############################################
 
-echo "[+] Starting TCP backup receiver on port $BACKUP_PORT"
+echo "[+] Monitoring for $RUN_HOURS h $RUN_MINUTES m $RUN_SECONDS s"
 
-(
-    while true; do
-        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-        OUTFILE="$BACKUP_DIR/backup_$TIMESTAMP.raw"
+SMARTCAM_PID_FILE="/tmp/smartcam.pid"
+SMARTCAM_STARTED=false
 
-        echo "[*] Waiting for backup connection..."
-        nc -l -p "$BACKUP_PORT" > "$OUTFILE"
+while true; do
+    CURRENT_TIME=$(date +%s)
+    ELAPSED=$(( CURRENT_TIME - START_TIME ))
 
-        echo "[*] Backup received -> $OUTFILE"
-    done
-) &
-
-BACKUP_PID=$!
-
-############################################
-# START SMART CAMERA ON RB3
-############################################
-
-echo "[+] Launching smart camera on RB3 Gen 2"
-
-ssh "$RB3_USER@$RB3_HOST" "
-    nohup $RB3_BINARY >/dev/null 2>&1 &
-    echo \$! > /tmp/smartcam.pid
-"
-
-############################################
-# WAIT FOR EXPERIMENT DURATION
-############################################
-
-echo "[+] Experiment running for $RUN_HOURS h $RUN_MINUTES m $RUN_SECONDS s"
-sleep "$TOTAL_SECONDS"
-
-############################################
-# STOP SMART CAMERA
-############################################
-
-echo "[+] Stopping smart camera on RB3"
-
-ssh "$RB3_USER@$RB3_HOST" "
-    if [ -f /tmp/smartcam.pid ]; then
-        kill \$(cat /tmp/smartcam.pid)
-        rm /tmp/smartcam.pid
+    # Exit condition
+    if [ "$ELAPSED" -ge "$TOTAL_SECONDS" ]; then
+        echo "[+] Experiment duration reached"
+        break
     fi
-"
 
-############################################
-# STOP BACKUP RECEIVER
-############################################
+    # Start smartcam after PRERUN_BUFFER
+    if [ "$ELAPSED" -ge "$PRERUN_BUFFER" ] && [ "$SMARTCAM_STARTED" = false ]; then
+        echo "[+] Launching smartcam on RB3"
+        ssh "$RB3_USER@$RB3_HOST" "
+            nohup $RB3_BINARY >/dev/null 2>&1 &
+            echo \$! > $SMARTCAM_PID_FILE
+        "
+        SMARTCAM_STARTED=true
+    fi
 
-echo "[+] Stopping TCP backup receiver"
-kill "$BACKUP_PID" 2>/dev/null || true
+    # Stop smartcam POSTRUN_BUFFER before experiment ends
+    if [ "$ELAPSED" -ge $(( TOTAL_SECONDS - POSTRUN_BUFFER )) ] && [ "$SMARTCAM_STARTED" = true ]; then
+        echo "[+] Stopping smartcam on RB3 for idle buffer"
+        ssh "$RB3_USER@$RB3_HOST" "
+            if [ -f $SMARTCAM_PID_FILE ]; then
+                kill \$(cat $SMARTCAM_PID_FILE) 2>/dev/null || true
+                rm -f $SMARTCAM_PID_FILE
+            fi
+        "
+        SMARTCAM_STARTED=false
+    fi
 
-############################################
-# STOP PACKET CAPTURE
-############################################
+    # Periodically prune backups
+    prune_backups
 
-echo "[+] Stopping packet capture"
-sudo kill "$TCPDUMP_PID"
-wait "$TCPDUMP_PID" 2>/dev/null || true
+    sleep 5
+done
 
 ############################################
 # FINAL STATUS

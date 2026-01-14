@@ -51,7 +51,7 @@ static void msleep(uint64_t ms)
 
 #define LABEL_PORT 9000           // Port to send lightweight event labels
 #define SYNC_PORT  9001           // Port to send aggressive sync events
-#define LABEL_DST  "192.0.2.1"    // Destination IP for UDP events
+#define LABEL_DST  "10.0.0.1"    // Destination IP for UDP events
 
 // Send a simple JSON label over UDP
 static void send_label(const char *label)
@@ -179,7 +179,7 @@ static void upload_file(const char *path)
     struct sockaddr_in dst = {0};
     dst.sin_family = AF_INET;
     dst.sin_port = htons(10000);
-    inet_pton(AF_INET, "192.0.2.2", &dst.sin_addr); // Destination server
+    inet_pton(AF_INET, "10.0.0.1", &dst.sin_addr); // Destination server
 
     if (connect(sock, (struct sockaddr *)&dst, sizeof(dst)) < 0) goto out; // Exit on failure
 
