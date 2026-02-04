@@ -64,17 +64,25 @@ void send_label(const char *host_ip, int port, const char *event) {
 
 int rand_range(int min, int max) { return (min>max)?min:(min + rand() % (max-min+1)); }
 
-int capture_video(int seconds, const char *filename) {
-    char cmd[1024];
-    snprintf(cmd, sizeof(cmd),
-        "timeout %d gst-launch-1.0 -e "
-        "v4l2src device=%s ! "
-        "video/x-raw,width=1280,height=720,framerate=30/1 ! "
-        "v4l2h264enc ! "
-        "h264parse ! mp4mux ! filesink location=%s",
-        seconds, VIDEO_DEVICE, filename);
+int capture_video(int duration_sec, const char *filename)
+{
 
-    return (system(cmd) == 0);
+    int camera_index = 1;
+
+    char cmd[512];
+    snprintf(cmd, sizeof(cmd),
+             "timeout %d gst-multi-camera-example -o %d && cp /opt/cam%d_vid.mp4 %s",
+             duration_sec, camera_index, camera_index, filename);
+
+
+    int ret = system(cmd);
+
+    if (ret != 0) {
+        fprintf(stderr, "Error: Video capture failed (camera %d)\n", camera_index);
+        return -1;
+    }
+
+    return 0;
 }
 
 int upload_file(const char *host_ip, int port, const char *filename) {

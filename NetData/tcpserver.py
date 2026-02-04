@@ -2,7 +2,7 @@ import socket
 import struct
 import time
 
-HOST = "10.0.0.68"
+HOST = "10.0.0.1"
 PORT = 9000
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
