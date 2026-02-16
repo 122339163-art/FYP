@@ -1,0 +1,350 @@
+./iot_cam 10.0.0.1 9000 0.5 0.5 5 5                                     
+GBM_INFO::msmgbm_mapper(262)::gbm mapper instantiated                                                      
+                                                                                                           
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+                                                                                                           
+ Link video encoder elements ..                                                                            
+                                                                                                           
+ All elements are linked successfully                                                                      
+                                                                                                           
+ Setting pipeline to PAUSED state ...                                                                      
+                                                                                                           
+ Pipeline is live and does not need PREROLL.                                                               
+                                                                                                           
+ Application is running...                                                                                 
+                                                                                                           
+Pipeline state changed from NULL to READY:                                                                 
+                                                                                                           
+Pipeline state changed from READY to PAUSED:                                                               
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar1
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 28
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+                                                                                                           
+Pipeline state changed from PAUSED to PLAYING:                                                             
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 28
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar5
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar9
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+Error: Video capture failed (camera 1)                                                                     
+GBM_INFO::msmgbm_mapper(262)::gbm mapper instantiated                                                      
+                                                                                                           
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+^C[  729.123449][ T1553] qcom,fastrpc-cb a300000.remoteproc:glink-edge:fastrpc:compute-cb@2: unmmap     ptR
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+                                                                                                           
+ Link video encoder elements ..                                                                            
+                                                                                                           
+ All elements are linked successfully                                                                      
+                                                                                                           
+ Setting pipeline to PAUSED state ...                                                                      
+                                                                                                           
+ Pipeline is live and does not need PREROLL.                                                               
+                                                                                                           
+ Application is running...                                                                                 
+                                                                                                           
+Pipeline state changed from NULL to READY:                                                                 
+                                                                                                           
+Pipeline state changed from READY to PAUSED:                                                               
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar1
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 28
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar9
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 20
+                                                                                                           
+                                                                                                           
+Pipeline state changed from PAUSED to PLAYING:                                                             
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 28
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar1
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 20
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar7
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar9
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar1
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 22
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+Error: Video capture failed (camera 1)                                                                     
+GBM_INFO::msmgbm_mapper(262)::gbm mapper instantiated                                                      
+                                                                                                           
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+[  734.210106][ T1645] qcom,fastrpc-cb a300000.remoteproc:glink-edge:fastrpc:compute-cb@2: unmmap       ptR
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+                                                                                                           
+ Link video encoder elements ..                                                                            
+                                                                                                           
+ All elements are linked successfully                                                                      
+                                                                                                           
+ Setting pipeline to PAUSED state ...                                                                      
+                                                                                                           
+ Pipeline is live and does not need PREROLL.                                                               
+                                                                                                           
+ Application is running...                                                                                 
+                                                                                                           
+Pipeline state changed from NULL to READY:                                                                 
+                                                                                                           
+Pipeline state changed from READY to PAUSED:                                                               
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar1
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 28
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar9
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 20
+                                                                                                           
+                                                                                                           
+Pipeline state changed from PAUSED to PLAYING:                                                             
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 28
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar1
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 20
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar7
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar9
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 21
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar2
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 23
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar0
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 25
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar4
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+Error: Video capture failed (camera 1)                                                                     
+GBM_INFO::msmgbm_mapper(262)::gbm mapper instantiated                                                      
+                                                                                                           
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+[  739.281681][ T1784] qcom,fastrpc-cb a300000.remoteproc:glink-edge:fastrpc:compute-cb@2: unmmap       ptR
+gbm_create_device(224): Info: backend name is: msm_drm                                                     
+                                                                                                           
+ Link video encoder elements ..                                                                            
+                                                                                                           
+ All elements are linked successfully                                                                      
+                                                                                                           
+ Setting pipeline to PAUSED state ...                                                                      
+                                                                                                           
+ Pipeline is live and does not need PREROLL.                                                               
+                                                                                                           
+ Application is running...                                                                                 
+                                                                                                           
+Pipeline state changed from NULL to READY:                                                                 
+                                                                                                           
+Pipeline state changed from READY to PAUSED:                                                               
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar8
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 29
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar1
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 27
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar6
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 28
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1611)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for fd errono: 22 (Invalid ar9
+                                                                                                           
+GBM_ERR::msmgbm_bo_import_gbm_buf(1639)::DRM_IOCTL_PRIME_FD_TO_HANDLE failed for metadatadata fd errono: 20
+                                                                                                           
+                                         
