@@ -5,7 +5,7 @@ NETWORK_FILE = "/home/iankenny/FYP/NetData/run01/feb17normalrun_datasetdata_mast
 POWER_FILE   = "/home/iankenny/Desktop/LargeData/PowerData/2026_02_17_13_32_30_mastertime.csv"
 OUTPUT_FILE  = "/home/iankenny/Desktop/LargeData/MergedData/Unlabelled_merged.csv"
 
-CHUNK_SIZE = 5000000
+CHUNK_SIZE = 1000000
 TOLERANCE = 0.0006   # 0.6 ms
 
 print("Loading network data...")

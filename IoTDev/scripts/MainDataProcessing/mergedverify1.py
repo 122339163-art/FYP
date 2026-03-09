@@ -5,7 +5,7 @@ NETWORK_FILE = "/home/iankenny/FYP/NetData/run01/feb17normalrun_datasetdata_mast
 POWER_FILE   = "/home/iankenny/Desktop/LargeData/PowerData/2026_02_17_13_32_30_mastertime.csv"
 MERGED_FILE  = "/home/iankenny/Desktop/LargeData/MergedData/Unlabelled_merged.csv"
 EXPECTED_COLS = ['date', 'time', 'current', 'source', 'destination', 'protocol', 'length', 'info']
-CHUNK_SIZE   = 10_000_000  # Adjust for your RAM
+CHUNK_SIZE   = 20000000  # Adjust for your RAM
 
 # Correct dtypes
 dtypes = {
